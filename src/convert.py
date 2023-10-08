@@ -2,6 +2,7 @@ import os
 from collections import defaultdict
 from urllib.parse import unquote, urlparse
 
+import numpy as np
 import pycocotools.mask as mask_util
 import supervisely as sly
 from dataset_tools.convert import unpack_if_archive
@@ -33,7 +34,7 @@ def download_dataset(teamfiles_dir: str) -> str:
             total=fsize,
             unit="B",
             unit_scale=True,
-        ) as pbar:        
+        ) as pbar:
             api.file.download(team_id, teamfiles_path, local_path, progress_cb=pbar)
         dataset_path = unpack_if_archive(local_path)
 
@@ -50,7 +51,9 @@ def download_dataset(teamfiles_dir: str) -> str:
                     unit="B",
                     unit_scale=True,
                 ) as pbar:
-                    api.file.download(team_id, teamfiles_path, local_path, progress_cb=pbar)
+                    api.file.download(
+                        team_id, teamfiles_path, local_path, progress_cb=pbar
+                    )
 
                 sly.logger.info(f"Start unpacking archive '{file_name_with_ext}'...")
                 unpack_if_archive(local_path)
@@ -61,7 +64,8 @@ def download_dataset(teamfiles_dir: str) -> str:
 
         dataset_path = storage_dir
     return dataset_path
-    
+
+
 def count_files(path, extension):
     count = 0
     for root, dirs, files in os.walk(path):
@@ -69,7 +73,8 @@ def count_files(path, extension):
             if file.endswith(extension):
                 count += 1
     return count
-    
+
+
 def convert_and_upload_supervisely_project(
     api: sly.Api, workspace_id: int, project_name: str
 ) -> sly.ProjectInfo:
@@ -78,11 +83,99 @@ def convert_and_upload_supervisely_project(
     # train_images_path = "/home/alex/DATASETS/TODO/PACO-LVIS/archive/train2017"
     # val_images_path = "/home/alex/DATASETS/TODO/PACO-LVIS/archive/val2017"
     # test_images_path = "/home/alex/DATASETS/DONE/LVIS/test2017"
-    train_json_path = os.path.join("archive","annotations","paco_lvis_v1_train.json")
-    val_json_path = os.path.join("archive","annotations", "paco_lvis_v1_val.json")
-    test_json_path = os.path.join("archive","annotations","paco_lvis_v1_test.json")
+    train_json_path = os.path.join("archive", "annotations", "paco_lvis_v1_train.json")
+    val_json_path = os.path.join("archive", "annotations", "paco_lvis_v1_val.json")
+    test_json_path = os.path.join("archive", "annotations", "paco_lvis_v1_test.json")
     batch_size = 10
 
+    bad_data = [
+        "train2017/000000563746.jpg",
+        "train2017/000000500853.jpg",
+        "train2017/000000280819.jpg",
+        "train2017/000000112240.jpg",
+        "train2017/000000261026.jpg",
+        "train2017/000000476455.jpg",
+        "train2017/000000341132.jpg",
+        "train2017/000000425569.jpg",
+        "train2017/000000457943.jpg",
+        "train2017/000000319055.jpg",
+        "train2017/000000306395.jpg",
+        "train2017/000000551581.jpg",
+        "train2017/000000557422.jpg",
+        "train2017/000000289618.jpg",
+        "train2017/000000326959.jpg",
+        "train2017/000000166948.jpg",
+        "train2017/000000078858.jpg",
+        "train2017/000000318200.jpg",
+        "train2017/000000261563.jpg",
+        "train2017/000000278550.jpg",
+        "train2017/000000235491.jpg",
+        "train2017/000000157955.jpg",
+        "train2017/000000454209.jpg",
+        "train2017/000000524382.jpg",
+        "train2017/000000179441.jpg",
+        "train2017/000000113672.jpg",
+        "train2017/000000113672.jpg",
+        "train2017/000000546670.jpg",
+        "train2017/000000429497.jpg",
+        "train2017/000000545124.jpg",
+        "train2017/000000514456.jpg",
+        "train2017/000000534694.jpg",
+        "train2017/000000187447.jpg",
+        "train2017/000000131697.jpg",
+        "train2017/000000130538.jpg",
+        "train2017/000000329035.jpg",
+        "train2017/000000323479.jpg",
+        "train2017/000000498218.jpg",
+        "train2017/000000489186.jpg",
+        "train2017/000000226658.jpg",
+        "train2017/000000123539.jpg",
+        "train2017/000000248031.jpg",
+        "train2017/000000006465.jpg",
+        "train2017/000000064800.jpg",
+        "train2017/000000045026.jpg",
+        "train2017/000000474026.jpg",
+        "train2017/000000475485.jpg",
+        "train2017/000000434067.jpg",
+        "train2017/000000216952.jpg",
+        "train2017/000000363455.jpg",
+        "train2017/000000328088.jpg",
+        "train2017/000000106817.jpg",
+        "train2017/000000200138.jpg",
+        "train2017/000000216740.jpg",
+        "train2017/000000287312.jpg",
+        "train2017/000000542818.jpg",
+        "train2017/000000509419.jpg",
+        "train2017/000000453605.jpg",
+        "train2017/000000018214.jpg",
+        "train2017/000000135278.jpg",
+        "train2017/000000123920.jpg",
+        "train2017/000000351729.jpg",
+        "train2017/000000115404.jpg",
+        "train2017/000000044625.jpg",
+        "train2017/000000422008.jpg",
+        "train2017/000000205440.jpg",
+        "train2017/000000238535.jpg",
+        "train2017/000000110723.jpg",
+        "train2017/000000139500.jpg",
+        "train2017/000000242203.jpg",
+        "train2017/000000279530.jpg",
+        "train2017/000000231899.jpg",
+        "train2017/000000049199.jpg",
+        "train2017/000000513768.jpg",
+        "train2017/000000472607.jpg",
+        "train2017/000000098205.jpg",
+        "val2017/000000359540.jpg",
+        "val2017/000000507015.jpg",
+        "val2017/000000570834.jpg",
+        "train2017/000000048332.jpg",
+        "train2017/000000235747.jpg",
+        "train2017/000000373373.jpg",
+        "train2017/000000250035.jpg",
+        "train2017/000000335144.jpg",
+        "train2017/000000317208.jpg",
+        "train2017/000000467076.jpg",
+    ]
     attributes_values = [
         "black",
         "light_blue",
@@ -431,7 +524,6 @@ def convert_and_upload_supervisely_project(
     material = sly.TagMeta("material", sly.TagValueType.ANY_STRING)
     transparency = sly.TagMeta("transparency", sly.TagValueType.ANY_STRING)
 
-
     def index_to_attribute(index):
         if index in range(30):
             return "color"
@@ -441,7 +533,6 @@ def convert_and_upload_supervisely_project(
             return "material"
         elif index in range(55, 59):
             return "transparency"
-
 
     def create_ann(image_path):
         labels = []
@@ -461,10 +552,17 @@ def convert_and_upload_supervisely_project(
         for curr_ann_data in ann_data:
             label_tags = []
             attributes_idxs = curr_ann_data[3]
-            group_to_value = {"color": [], "pattern marking": [], "material": [], "transparency": []}
+            group_to_value = {
+                "color": [],
+                "pattern marking": [],
+                "material": [],
+                "transparency": [],
+            }
             for attribute_id in attributes_idxs:
                 attributes_value = attributes_values[attribute_id]
-                group_to_value[index_to_attribute(attribute_id)].append(attributes_value)
+                group_to_value[index_to_attribute(attribute_id)].append(
+                    attributes_value
+                )
             for tag_name, tag_values in group_to_value.items():
                 if len(tag_values) == 0:
                     continue
@@ -486,11 +584,11 @@ def convert_and_upload_supervisely_project(
                 # ret, curr_mask = connectedComponents(mask.astype("uint8"), connectivity=8)
                 # for i in range(1, ret):
                 #     obj_mask = curr_mask == i
-                if mask.max == False:
+                if len(np.unique(mask)) == 1:
                     errors.append(image_name)
                     continue
                 curr_bitmap = sly.Bitmap(mask)
-                    # if curr_bitmap.area > 30:
+                # if curr_bitmap.area > 30:
                 curr_label = sly.Label(curr_bitmap, obj_class, tags=label_tags)
                 labels.append(curr_label)
             else:
@@ -515,8 +613,9 @@ def convert_and_upload_supervisely_project(
             label_rectangle = sly.Label(rectangle, obj_class, tags=label_tags)
             labels.append(label_rectangle)
 
-        return sly.Annotation(img_size=(img_height, img_wight), labels=labels, img_tags=tags)
-
+        return sly.Annotation(
+            img_size=(img_height, img_wight), labels=labels, img_tags=tags
+        )
 
     color = sly.TagMeta("color", sly.TagValueType.ANY_STRING)
     pattern_making = sly.TagMeta("pattern marking", sly.TagValueType.ANY_STRING)
@@ -524,8 +623,12 @@ def convert_and_upload_supervisely_project(
     transparency = sly.TagMeta("transparency", sly.TagValueType.ANY_STRING)
     part_of = sly.TagMeta("part of", sly.TagValueType.ANY_STRING)
 
-    project = api.project.create(workspace_id, project_name, change_name_if_conflict=True)
-    meta = sly.ProjectMeta(tag_metas=[color, pattern_making, material, transparency, part_of])
+    project = api.project.create(
+        workspace_id, project_name, change_name_if_conflict=True
+    )
+    meta = sly.ProjectMeta(
+        tag_metas=[color, pattern_making, material, transparency, part_of]
+    )
     for obj_class_name in object_classes + part_categories:
         obj_class = meta.get_obj_class(obj_class_name)
         if obj_class is None:
@@ -533,7 +636,11 @@ def convert_and_upload_supervisely_project(
             meta = meta.add_obj_class(obj_class)
     api.project.update_meta(project.id, meta.to_json())
 
-    ds_to_data = {"val2017": val_json_path, "train2017": train_json_path, "test2017": test_json_path}
+    ds_to_data = {
+        "val2017": val_json_path,
+        "train2017": train_json_path,
+        "test2017": test_json_path,
+    }
 
     for ds_name, ann_path in ds_to_data.items():
         dataset = api.dataset.create(project.id, ds_name, change_name_if_conflict=True)
@@ -565,7 +672,10 @@ def convert_and_upload_supervisely_project(
                 + curr_image_info["coco_url"].split("/")[-1]
             )
             image_id_to_name[curr_image_info["id"]] = image_name
-            image_name_to_shape[image_name] = (curr_image_info["height"], curr_image_info["width"])
+            image_name_to_shape[image_name] = (
+                curr_image_info["height"],
+                curr_image_info["width"],
+            )
 
         for curr_ann_data in ann["annotations"]:
             image_id = curr_ann_data["image_id"]
@@ -589,7 +699,9 @@ def convert_and_upload_supervisely_project(
 
             img_names_batch = [im_name.split("/")[-1] for im_name in img_names_batch]
 
-            img_infos = api.image.upload_paths(dataset.id, img_names_batch, images_pathes_batch)
+            img_infos = api.image.upload_paths(
+                dataset.id, img_names_batch, images_pathes_batch
+            )
             img_ids = [im_info.id for im_info in img_infos]
 
             anns_batch = [create_ann(image_path) for image_path in images_pathes_batch]
