@@ -53,7 +53,7 @@ CLASS2COLOR: Optional[Dict[str, List[str]]] = None
 # Use dict key to specify name for a button
 PAPER: Optional[Union[str, List[str], Dict[str, str]]] = ["https://arxiv.org/abs/2301.01795"]
 BLOGPOST: Optional[Union[str, List[str], Dict[str, str]]] = None
-REPOSITORY: Optional[Union[str, List[str], Dict[str, str]]] = {"GitHub Page":"https://github.com/facebookresearch/paco"}
+REPOSITORY: Optional[Union[str, List[str], Dict[str, str]]] = {"GitHub":"https://github.com/facebookresearch/paco"}
 
 CITATION_URL: Optional[str] = "https://arxiv.org/abs/2301.01795"
 AUTHORS: Optional[List[str]] = ["Vignesh Ramanathan", "Anmol Kalia", "Vladan Petrovic", "Yi Wen", "Baixue Zheng", "Baishan Guo", "Rui Wang", "Aaron Marquez", "Rama Kovvuri", "Abhishek Kadian", "Amir Mousavi", "Yiwen Song", "Abhimanyu Dubey", "Dhruv Mahajan"]
