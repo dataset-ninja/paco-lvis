@@ -7,10 +7,7 @@ PACO is constructed from [LVIS](https://ieeexplore.ieee.org/document/8954457) in
 
 ## Object vocabulary selection
 
-Authors first mined all object categories mentioned in the narrations accompanying Ego4D and took the intersection with
-common and frequent categories in LVIS. Authors then chose
-categories with at-least 20 instances in Ego4D, resulting in
-75 categories commonly found in both LVIS and Ego4D.
+Authors first mined all object categories mentioned in the narrations accompanying Ego4D and took the intersection with common and frequent categories in LVIS. Authors then chose categories with at-least 20 instances in Ego4D, resulting in 75 categories commonly found in both LVIS and Ego4D.
 
 ## Parts vocabulary selection
 
@@ -24,4 +21,4 @@ Attributes are particularly useful in distinguishing different instances of the 
 
 <span style="font-size: smaller; font-style: italic;"> (left) PACO includes objects with object masks, object attributes, part masks, and part attributes. (right) Object instance queries composed of object and part attributes are shown with corresponding positive images in green and negative images in red.</span>
 
-<i>Please note, [bad data](https://github.com/dataset-ninja/paco-lvis/blob/main/src/convert.py#L91) detected.<>
+<i>Please note, [bad data](https://github.com/dataset-ninja/paco-lvis/blob/main/src/convert.py#L91) detected.</i>
