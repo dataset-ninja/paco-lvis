@@ -23,3 +23,5 @@ Attributes are particularly useful in distinguishing different instances of the 
 <img src="https://i.ibb.co/xSjfNk2/Screenshot-2023-10-11-132738.png" alt="image" width="800">
 
 <span style="font-size: smaller; font-style: italic;"> (left) PACO includes objects with object masks, object attributes, part masks, and part attributes. (right) Object instance queries composed of object and part attributes are shown with corresponding positive images in green and negative images in red.</span>
+
+<i>Please note, [bad data](https://github.com/dataset-ninja/paco-lvis/blob/main/src/convert.py#L91) detected.<>
