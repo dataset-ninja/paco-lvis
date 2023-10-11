@@ -21,8 +21,8 @@ HIDE_DATASET = True  # set False when 100% sure about repo quality
 # * After uploading to instance ##
 ##################################
 LICENSE: License = License.MIT()
-APPLICATIONS: List[Union[Industry, Domain, Research]] = [Industry.Environmental()]
-CATEGORY: Category = Category.Environmental()
+APPLICATIONS: List[Union[Industry, Domain, Research]] = [Domain.General()]
+CATEGORY: Category = Category.General()
 
 CV_TASKS: List[CVTask] = [CVTask.InstanceSegmentation(), CVTask.ObjectDetection(), CVTask.SemanticSegmentation()]
 ANNOTATION_TYPES: List[AnnotationType] = [AnnotationType.InstanceSegmentation()]
@@ -58,11 +58,11 @@ REPOSITORY: Optional[Union[str, List[str], Dict[str, str]]] = {"GitHub":"https:/
 CITATION_URL: Optional[str] = "https://arxiv.org/abs/2301.01795"
 AUTHORS: Optional[List[str]] = ["Vignesh Ramanathan", "Anmol Kalia", "Vladan Petrovic", "Yi Wen", "Baixue Zheng", "Baishan Guo", "Rui Wang", "Aaron Marquez", "Rama Kovvuri", "Abhishek Kadian", "Amir Mousavi", "Yiwen Song", "Abhimanyu Dubey", "Dhruv Mahajan"]
 
-ORGANIZATION_NAME: Optional[Union[str, List[str]]] = ["Meta AI", "Simon Fraser University"]
+ORGANIZATION_NAME: Optional[Union[str, List[str]]] = ["Meta AI", "Simon Fraser University, Canada"]
 ORGANIZATION_URL: Optional[Union[str, List[str]]] = ["https://ai.meta.com/", "https://www.sfu.ca/"]
 
 # Set '__PRETEXT__' or '__POSTTEXT__' as a key with string value to add custom text. e.g. SLYTAGSPLIT = {'__POSTTEXT__':'some text}
-SLYTAGSPLIT: Optional[Dict[str, Union[List[str], str]]] = {"__POSTTEXT__":"Also, the dataset contains ***color***, ***pattern marking***, ***material***, ***transparency*** and ***part_of*** tags"}
+SLYTAGSPLIT: Optional[Dict[str, Union[List[str], str]]] = {"__POSTTEXT__":"Also, the dataset contains ***color***, ***pattern marking***, ***material***, ***transparency*** and ***part_of*** object tags. Explore them in supervisely advanced labeling tool"}
 TAGS: Optional[List[str]] = None
 
 

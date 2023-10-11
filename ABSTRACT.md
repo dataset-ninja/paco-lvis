@@ -3,7 +3,7 @@ The authors introduce the **PACO-LVIS** dataset, strategically selecting vocabul
 
 ## Image sources
 
-PACO is constructed from [LVIS](https://ieeexplore.ieee.org/document/8954457) in the image domain (current dataset) and [Ego4D](https://arxiv.org/abs/2110.07058) in the video domain. Authors chose LVIS due to its large object vocabulary and federated dataset construction. Ego4D has temporally aligned narrations, making it easy to source frames corresponding to specific objects.
+PACO is constructed from [LVIS](https://ieeexplore.ieee.org/document/8954457) ([available on DatasetNinja](https://datasetninja.com/lvis)) in the image domain (current dataset) and [Ego4D](https://arxiv.org/abs/2110.07058) in the video domain. Authors chose LVIS due to its large object vocabulary and federated dataset construction. Ego4D has temporally aligned narrations, making it easy to source frames corresponding to specific objects.
 
 ## Object vocabulary selection
 
@@ -11,14 +11,19 @@ Authors first mined all object categories mentioned in the narrations accompanyi
 
 ## Parts vocabulary selection
 
-Excluding specific domains like fashion [20], there is no exhaustive ontology of parts for common objects. Authors mined part names from web-images obtained through queries like “parts of a car”. These images list part-names along with illustrations and pointers to the parts in the object. Authors manually curate such mined part names for an object category to only retain parts that are visible in majority of the object instances and clearly distinguishable. More details in the appendix. This resulted in a total of 200 part classes shared across all 75 objects. When expanded to object-specific parts this results in 456 object-part classes.
+Excluding specific domains like [fashion](https://openaccess.thecvf.com/content_cvpr_2018/papers/Reddy_CarFusion_Combining_Point_CVPR_2018_paper.pdf), there is no exhaustive ontology of parts for common objects. Authors mined part names from web-images obtained through queries like “parts of a car”. These images list part-names along with illustrations and pointers to the parts in the object. Authors manually curate such mined part names for an object category to only retain parts that are visible in majority of the object instances and clearly distinguishable. More details in the appendix. This resulted in a total of 200 part classes shared across all 75 objects. When expanded to object-specific parts this results in 456 object-part classes.
 
 ## Attribute vocabulary selection
 
 Attributes are particularly useful in distinguishing different instances of the same object type. Motivated by this, authors conducted an in-depth user study (details in appendix) to identify the sufficient set of attributes that can separate all object instances in the dataset. This led to the final vocabulary of 29 colors, 10 patterns and markings, 13 materials and 3 levels of reflectance.
 
-<img src="https://i.ibb.co/xSjfNk2/Screenshot-2023-10-11-132738.png" alt="image" width="800">
+<img src="https://i.ibb.co/BVc6X3h/Screenshot-2023-10-11-191835.png" alt="image" width="800">
 
 <span style="font-size: smaller; font-style: italic;"> (left) PACO includes objects with object masks, object attributes, part masks, and part attributes. (right) Object instance queries composed of object and part attributes are shown with corresponding positive images in green and negative images in red.</span>
+
+<img src="https://i.ibb.co/5KLNgyN/Screenshot-2023-10-11-191603.png" alt="image" width="800">
+
+<span style="font-size: smaller; font-style: italic;"> Dataset Statistics. (a) shows the distribution of instances across the 456 object-part categories. (b) shows the size distribution of object and part masks in PACO-LVIS. (c) shows the distribution of the 55 attribute classes across instances in PACO-LVIS.
+</span>
 
 <i>Please note, [bad data](https://github.com/dataset-ninja/paco-lvis/blob/main/src/convert.py#L91) detected.</i>
