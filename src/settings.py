@@ -57,7 +57,7 @@ REPOSITORY: Optional[Union[str, List[str], Dict[str, str]]] = None
 
 CITATION_URL: Optional[str] = "https://arxiv.org/abs/2301.01795"
 AUTHORS: Optional[List[str]] = ["Vignesh Ramanathan", "Anmol Kalia", "Vladan Petrovic", "Yi Wen", "Baixue Zheng", "Baishan Guo", "Rui Wang", "Aaron Marquez", "Rama Kovvuri", "Abhishek Kadian", "Amir Mousavi", "Yiwen Song", "Abhimanyu Dubey", "Dhruv Mahajan"]
-AUTHORS_CONTACTS: Optional[List[str]] = ["vigneshr@stanford.edu"]
+AUTHORS_CONTACTS: Optional[List[str]] = ["vigneshr@meta.com", "vigneshr@stanford.edu"]
 
 ORGANIZATION_NAME: Optional[Union[str, List[str]]] = ["Meta AI", "Simon Fraser University, Canada"]
 ORGANIZATION_URL: Optional[Union[str, List[str]]] = ["https://ai.meta.com/", "https://www.sfu.ca/"]
