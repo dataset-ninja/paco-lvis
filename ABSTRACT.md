@@ -23,7 +23,7 @@ Attributes are particularly useful in distinguishing different instances of the 
 
 <img src="https://i.ibb.co/5KLNgyN/Screenshot-2023-10-11-191603.png" alt="image" width="800">
 
-<span style="font-size: smaller; font-style: italic;"> Dataset Statistics. (a) shows the distribution of instances across the 456 object-part categories. (b) shows the size distribution of object and part masks in PACO-LVIS. (c) shows the distribution of the 55 attribute classes across instances in PACO-LVIS.
+<span style="font-size: smaller; font-style: italic;"> Dataset Statistics. (a) shows the distribution of instances across the 456 object-part categories. (b) shows the size distribution of object and part masks in PACO-LVIS. \(c\) shows the distribution of the 55 attribute classes across instances in PACO-LVIS.
 </span>
 
 <i>Please note, [bad data](https://github.com/dataset-ninja/paco-lvis/blob/main/src/convert.py#L91) detected.</i>
