@@ -57,12 +57,13 @@ REPOSITORY: Optional[Union[str, List[str], Dict[str, str]]] = None
 
 CITATION_URL: Optional[str] = "https://arxiv.org/abs/2301.01795"
 AUTHORS: Optional[List[str]] = ["Vignesh Ramanathan", "Anmol Kalia", "Vladan Petrovic", "Yi Wen", "Baixue Zheng", "Baishan Guo", "Rui Wang", "Aaron Marquez", "Rama Kovvuri", "Abhishek Kadian", "Amir Mousavi", "Yiwen Song", "Abhimanyu Dubey", "Dhruv Mahajan"]
+AUTHORS_CONTACTS: Optional[List[str]] = ["vigneshr@stanford.edu"]
 
 ORGANIZATION_NAME: Optional[Union[str, List[str]]] = ["Meta AI", "Simon Fraser University, Canada"]
 ORGANIZATION_URL: Optional[Union[str, List[str]]] = ["https://ai.meta.com/", "https://www.sfu.ca/"]
 
 # Set '__PRETEXT__' or '__POSTTEXT__' as a key with string value to add custom text. e.g. SLYTAGSPLIT = {'__POSTTEXT__':'some text}
-SLYTAGSPLIT: Optional[Dict[str, Union[List[str], str]]] = {"__POSTTEXT__":"Also, the dataset contains ***color***, ***pattern marking***, ***material***, ***transparency*** and ***part_of*** object tags. Explore them in supervisely advanced labeling tool"}
+SLYTAGSPLIT: Optional[Dict[str, Union[List[str], str]]] = {"__POSTTEXT__":"Also, the objects contains ***color***, ***pattern marking***, ***material***, ***transparency*** and ***part_of*** object tags. Explore them in the supervisely labeling tool"}
 TAGS: Optional[List[str]] = None
 
 
@@ -110,6 +111,7 @@ def get_settings():
     settings["repository"] = REPOSITORY
     settings["citation_url"] = CITATION_URL
     settings["authors"] = AUTHORS
+    settings["authors_contacts"] = AUTHORS_CONTACTS
     settings["organization_name"] = ORGANIZATION_NAME
     settings["organization_url"] = ORGANIZATION_URL
     settings["slytagsplit"] = SLYTAGSPLIT
