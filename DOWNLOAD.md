@@ -1,6 +1,6 @@
 Dataset **PACO-LVIS** can be downloaded in [Supervisely format](https://developer.supervisely.com/api-references/supervisely-annotation-json-format):
 
- [Download](https://assets.supervisely.com/supervisely-supervisely-assets-public/teams_storage/l/c/Ok/aRTODhjFg7AOyz1CzsZBP4bNdhmoToYpx0R8CfnbDGoRhipbSmfjJPHVWzwYeACPhCu9KrMKJu33IAsocOy0vToTtH8nJWpb0EAET3QJDqMwuU3z9UXQVagpIQI9.tar)
+ [Download](https://www.dropbox.com/scl/fi/ej3yytqazfmemarcjqn83/paco-lvis-DatasetNinja.tar?rlkey=ghc6mf6yodq832e0a5rptclzp&dl=1)
 
 As an alternative, it can be downloaded with *dataset-tools* package:
 ``` bash
